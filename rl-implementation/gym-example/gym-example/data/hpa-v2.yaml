@@ -1,0 +1,92 @@
+apiVersion: v1
+items:
+- apiVersion: autoscaling/v2beta2
+  kind: HorizontalPodAutoscaler
+  metadata:
+    creationTimestamp: "2020-09-14T11:15:38Z"
+    managedFields:
+    - apiVersion: autoscaling/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:maxReplicas: {}
+          f:minReplicas: {}
+          f:scaleTargetRef:
+            f:apiVersion: {}
+            f:kind: {}
+            f:name: {}
+          f:targetCPUUtilizationPercentage: {}
+      manager: kubectl
+      operation: Update
+      time: "2020-09-14T11:15:38Z"
+    - apiVersion: autoscaling/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:autoscaling.alpha.kubernetes.io/conditions: {}
+            f:autoscaling.alpha.kubernetes.io/current-metrics: {}
+        f:status:
+          f:currentCPUUtilizationPercentage: {}
+          f:currentReplicas: {}
+          f:desiredReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-09-14T11:15:43Z"
+    name: php-apache
+    namespace: default
+    resourceVersion: "2039433"
+    selfLink: /apis/autoscaling/v2beta2/namespaces/default/horizontalpodautoscalers/php-apache
+    uid: 4ecb7000-25fa-469a-a944-df721515c9f7
+  spec:
+    maxReplicas: 10
+    metrics:
+    - resource:
+        name: cpu
+        target:
+          averageUtilization: 90
+          type: Utilization
+      type: Resource
+    - resource:
+        name: memory
+        target:
+          averageUtilization: 80
+          type: Utilization
+      type: Resource
+    minReplicas: 1
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: php-apache
+  status:
+    conditions:
+    - lastTransitionTime: "2020-09-14T11:15:43Z"
+      message: recommended size matches current size
+      reason: ReadyForNewScale
+      status: "True"
+      type: AbleToScale
+    - lastTransitionTime: "2020-09-14T11:15:43Z"
+      message: the HPA was able to successfully calculate a replica count from cpu
+        resource utilization (percentage of request)
+      reason: ValidMetricFound
+      status: "True"
+      type: ScalingActive
+    - lastTransitionTime: "2020-09-14T11:15:43Z"
+      message: the desired replica count is less than the minimum replica count
+      reason: TooFewReplicas
+      status: "True"
+      type: ScalingLimited
+    currentMetrics:
+    - resource:
+        current:
+          averageUtilization: 0
+          averageValue: 1m
+        name: cpu
+      type: Resource
+    currentReplicas: 1
+    desiredReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
